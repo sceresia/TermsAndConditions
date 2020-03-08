@@ -16,10 +16,10 @@ struct TermsAndConditionsView: View {
     @State private var showingSheet = false
     
     struct Checkmark : View {
-         @Binding var validAgeEntered: Bool
+         @Binding var isValidAge: Bool
         
         var body: some View {
-            Image(systemName: validAgeEntered ? "checkmark.circle" : "xmark.circle").foregroundColor(validAgeEntered ? .green : .red)
+            Image(systemName: isValidAge ? "checkmark.circle" : "xmark.circle").foregroundColor(isValidAge ? .green : .red)
             .font(.system(size: 32, weight: .medium))
         }
     }
@@ -38,7 +38,7 @@ struct TermsAndConditionsView: View {
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                             
                             if !model.ageEntered.isEmpty {
-                                Checkmark(validAgeEntered: $model.validAgeEntered)
+                                Checkmark(isValidAge: $model.isValidAge)
                             }
                         }
                     }

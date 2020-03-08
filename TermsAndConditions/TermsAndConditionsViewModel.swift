@@ -12,7 +12,7 @@ import Combine
 class TermsAndConditionsViewModel: ObservableObject {
 
     @Published var ageEntered = ""
-    @Published var validAgeEntered = false
+    @Published var isValidAge = false
     @Published var readAgreement = false
     @Published var agreeTerms = false
     @Published var acceptMarketingEmails = false
@@ -53,7 +53,7 @@ class TermsAndConditionsViewModel: ObservableObject {
         
         isOldEnough
             .receive(on: RunLoop.main)
-            .assign(to: \.validAgeEntered, on: self)
+            .assign(to: \.isValidAge, on: self)
             .store(in: &cancellableSet)
         canContinue
             .receive(on: RunLoop.main)
