@@ -34,7 +34,6 @@ class TermsAndConditionsViewModel: ObservableObject {
     
     private var isOldEnough: AnyPublisher<Bool, Never> {
         $ageEntered
-            .debounce(for: 0.2, scheduler: RunLoop.main)
             .map { age in
                 return Int(age) ?? 0 >= self.minAge && Int(age) ?? 0 < self.maxAge
             }

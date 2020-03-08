@@ -28,36 +28,37 @@ struct TermsAndConditionsForm : View {
         
         VStack {
             Form {
+                
                 Section {
-                    Section {
-                        HStack {
-                            TextField("Enter your age (18+ only)", text: $model.ageEntered)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                            
-                            if !model.ageEntered.isEmpty {
-                                Checkmark(isValidAge: $model.isValidAge)
-                            }
+                    HStack {
+                        TextField("Enter your age (18+ only)", text: $model.ageEntered)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        if !model.ageEntered.isEmpty {
+                            Checkmark(isValidAge: $model.isValidAge)
                         }
                     }
-                    Section {
-                        Toggle(isOn: $model.readAgreement) {
-                            Text("Read Terms & Conditions")
-                        }
-                        Toggle(isOn: $model.agreeTerms) {
-                            Text("Agree to Terms & Conditions")
-                        }
-                        Toggle(isOn: $model.acceptMarketingEmails) {
-                            Text("Accept to receive email")
-                        }
+                }.padding()
+                
+                Section {
+                    Toggle(isOn: $model.readAgreement) {
+                        Text("Read Terms & Conditions")
                     }
-                    
+                    Toggle(isOn: $model.agreeTerms) {
+                        Text("Agree to Terms & Conditions")
+                    }
+                    Toggle(isOn: $model.acceptMarketingEmails) {
+                        Text("Accept to receive email")
+                    }
+                }.padding()
+                
+                HStack {
+                    Spacer()
+                    ContinueButton().disabled(!model.isEnabled)
+                    Spacer()
                 }.padding()
                 
             }.navigationBarTitle("Terms and Conditions")
             
-            ZStack {
-                ContinueButton().disabled(!model.isEnabled)
-            }
         }
         
     }
@@ -67,18 +68,20 @@ struct ContinueButton : View {
     @State private var showingSheet = false
 
     var body: some View {
+        
         Button(action: {
             self.showingSheet = true
         }) {
             Text("Continue")
         }
+        .padding()
+        .foregroundColor(.white)
+        .background(Color.accentColor)
+        .cornerRadius(8)
         .actionSheet(isPresented: $showingSheet) {
             ActionSheet(title: Text("Good to go 👌"), message: nil, buttons: [.cancel(Text("Dismiss"))])
         }
-        .foregroundColor(.white)
-        .padding()
-        .background(Color.accentColor)
-        .cornerRadius(8)
+        
     }
 }
 
